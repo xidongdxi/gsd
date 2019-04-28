@@ -53,5 +53,6 @@ solver_boundary_esf_function <- function(alpha, t, cumulative){
 ### Vecotr of the conditional error rate
 CE_function <- function(t, c_boundary) {
   K <- length(t)
-  1 - pnorm((c_boundary[K] - c_boundary * sqrt(t)) / sqrt(1 - t))
+  y <- 1 - pnorm((c_boundary[K] - c_boundary * sqrt(t)) / sqrt(1 - t))
+  return(y[-K])
 }
