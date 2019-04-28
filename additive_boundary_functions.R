@@ -188,6 +188,7 @@ esf_power_function <- function(alpha, t, rho) {
   return(y)
 }
 
+#########################################################################
 # Example call for Table 1
 alpha <- 0.025
 t <- c(0.25, 0.5, 0.75,1)
