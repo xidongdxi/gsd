@@ -191,7 +191,7 @@ esf_power_function <- function(alpha, t, rho) {
 #########################################################################
 # Example call for Table 1
 alpha <- 0.025
-t <- c(0.25, 0.5, 0.75,1)
+t <- c(0.25, 0.5, 0.75, 1)
 gamma <- 0.6
 # Boundary approach
 c_boundary <- uniroot(boundary_F1_function, interval = c(0.001, 10), alpha = alpha,
@@ -202,6 +202,41 @@ b <- CE_function(t, a)
 round(b, 3)
 # Error spending function approach
 cumulative <- esf_F1_function(alpha, t, gamma)
+a <- solver_boundary_esf_function(alpha, t, cumulative)
+round(a, 3)
+b <- CE_function(t, a)
+round(b, 3)
+
+#########################################################################
+# Example call for Table 4
+alpha <- 0.025
+t <- c(0.2, 0.4, 0.6, 0.8, 1)
+# For gamma >= 0.5
+gamma <- 0.5
+# Boundary approach
+c_boundary <- uniroot(boundary_combine_function, interval = c(0.001, 10), alpha = alpha,
+                      t = t, gamma = gamma)$root
+a <- c_boundary / sqrt(t) - qnorm(1 - gamma) * sqrt(1 - t) / sqrt(t)
+round(a, 3)
+b <- CE_function(t, a)
+round(b, 3)
+# Error spending function approach
+cumulative <- esf_combine_function(alpha, t, gamma)
+a <- solver_boundary_esf_function(alpha, t, cumulative)
+round(a, 3)
+b <- CE_function(t, a)
+round(b, 3)
+# For gamma < 0.5
+gamma <- 0.2
+# Boundary approach
+c_boundary <- uniroot(boundary_combine_function, interval = c(0.001, 10), alpha = alpha,
+                      t = t, gamma = gamma)$root
+a <- c_boundary / sqrt(t) - qnorm(1 - gamma) * (1 - t) / sqrt(t)
+round(a, 3)
+b <- CE_function(t, a)
+round(b, 3)
+# Error spending function approach
+cumulative <- esf_combine_function(alpha, t, gamma)
 a <- solver_boundary_esf_function(alpha, t, cumulative)
 round(a, 3)
 b <- CE_function(t, a)
