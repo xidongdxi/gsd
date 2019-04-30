@@ -70,7 +70,7 @@ boundary_F3_function <- function(x, alpha, t, gamma){
 ### gamma: parameter gamma
 ## Output
 ### Difference between alpha and the actual type I error
-boundary_combined_function <- function(x, alpha, t, gamma){
+boundary_combine_function <- function(x, alpha, t, gamma){
   if (gamma < 1 - pnorm(qnorm(1 - alpha / 2) / 2) | gamma >= 1) {
     stop(paste0("gamma should be between (",
                 round(1 - pnorm(qnorm(1 - alpha / 2)/2), 3), ", 1)"))
