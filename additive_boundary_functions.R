@@ -28,7 +28,7 @@ boundary_F1_function <- function(x, alpha, t, gamma){
 ## Output
 ### Difference between alpha and the actual type I error
 boundary_F2_function <- function(x, alpha, t, gamma){
-  if (gamma <= 1 - pnorm(qnorm(1 - alpha / 2) / 2) | gamma >= 1) {
+  if (gamma < 1 - pnorm(qnorm(1 - alpha / 2) / 2) | gamma >= 1) {
     stop(paste0("gamma should be between (",
                 round(1 - pnorm(qnorm(1 - alpha / 2)/2), 3), ", 1)"))
   } else {
@@ -71,7 +71,7 @@ boundary_F3_function <- function(x, alpha, t, gamma){
 ## Output
 ### Difference between alpha and the actual type I error
 boundary_combine_function <- function(x, alpha, t, gamma){
-  if (gamma <= 1 - pnorm(qnorm(1 - alpha / 2) / 2) | gamma >= 1) {
+  if (gamma < 1 - pnorm(qnorm(1 - alpha / 2) / 2) | gamma >= 1) {
     stop(paste0("gamma should be between (",
                 round(1 - pnorm(qnorm(1 - alpha / 2)/2), 3), ", 1)"))
   } else {
@@ -115,7 +115,7 @@ esf_F1_function <- function(alpha, t, gamma) {
 ## Output
 ### Vector of cumulative error spent
 esf_F2_function <- function(alpha, t, gamma) {
-  if (gamma <= 1 - pnorm(qnorm(1 - alpha / 2) / 2) | gamma >= 1) {
+  if (gamma < 1 - pnorm(qnorm(1 - alpha / 2) / 2) | gamma >= 1) {
     stop(paste0("gamma should be between (",
                 round(1 - pnorm(qnorm(1 - alpha / 2)/2), 3), ", 1)"))
   } else {
@@ -133,7 +133,7 @@ esf_F2_function <- function(alpha, t, gamma) {
 ## Output
 ### Vector of cumulative error spent
 esf_combine_function <- function(alpha, t, gamma) {
-  if (gamma <= 1 - pnorm(qnorm(1 - alpha / 2) / 2) | gamma >= 1) {
+  if (gamma < 1 - pnorm(qnorm(1 - alpha / 2) / 2) | gamma >= 1) {
     stop(paste0("gamma should be between (",
                 round(1 - pnorm(qnorm(1 - alpha / 2)/2), 3), ", 1)"))
   } else {
