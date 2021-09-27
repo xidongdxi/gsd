@@ -12,8 +12,7 @@ boundary_F1_function <- function(x, alpha, t, gamma){
   } else {
     K <- length(t)
     cr <- cr_function(t)
-    y <- 1 - alpha - pmvnorm(upper = x / sqrt(t) -
-                               qnorm(1 - gamma) * sqrt(1 - t) / sqrt(t),
+    y <- 1 - alpha - pmvnorm(upper = (x - qnorm(1 - gamma) * sqrt(1 - t)) / sqrt(t),
                              corr = cr, algorithm = Miwa(steps = 128))
     return(y)
   }
@@ -34,8 +33,7 @@ boundary_F2_function <- function(x, alpha, t, gamma){
   } else {
     K <- length(t)
     cr <- cr_function(t)
-    y <- 1 - alpha - pmvnorm(upper = x / sqrt(t) -
-                               qnorm(1 - gamma) * (1 - t) / sqrt(t),
+    y <- 1 - alpha - pmvnorm(upper = (x - qnorm(1 - gamma) * (1 - t)) / sqrt(t),
                              corr = cr, algorithm = Miwa(steps = 128))
     return(y)
   }
@@ -55,8 +53,7 @@ boundary_F3_function <- function(x, alpha, t, gamma){
   } else {
     K <- length(t)
     cr <- cr_function(t)
-    y <- 1 - alpha - pmvnorm(upper = x / sqrt(t) -
-                               qnorm(1 - gamma) * (1 - sqrt(t)) / sqrt(t),
+    y <- 1 - alpha - pmvnorm(upper = (x - qnorm(1 - gamma) * (1 - sqrt(t))) / sqrt(t),
                              corr = cr, algorithm = Miwa(steps = 128))
     return(y)
   }
@@ -78,12 +75,10 @@ boundary_combine_function <- function(x, alpha, t, gamma){
     K <- length(t)
     cr <- cr_function(t)
     if (gamma >= 0.5 & gamma < 1) {
-      y <- 1 - alpha - pmvnorm(upper = x / sqrt(t) -
-                                 qnorm(1 - gamma) * sqrt(1 - t) / sqrt(t),
+      y <- 1 - alpha - pmvnorm(upper = (x - qnorm(1 - gamma) * sqrt(1 - t)) / sqrt(t),
                                corr = cr, algorithm = Miwa(steps = 128))
     } else {
-      y <- 1 - alpha - pmvnorm(upper = x / sqrt(t) -
-                                 qnorm(1 - gamma) * (1 - t) / sqrt(t),
+      y <- 1 - alpha - pmvnorm(upper = (x - qnorm(1 - gamma) * (1 - t)) / sqrt(t),
                                corr = cr, algorithm = Miwa(steps = 128))
     }
     return(y)
@@ -101,8 +96,8 @@ esf_F1_function <- function(alpha, t, gamma) {
   if (gamma < 0.5 | gamma >= 1) {
     stop("gamma should be between [0.5, 1)")
   } else {
-    y <- 2 - 2 * pnorm(qnorm(1 - alpha / 2) / sqrt(t) -
-                         qnorm(1 - gamma) * sqrt(1 - t) / sqrt(t))
+    y <- 2 - 2 * pnorm((qnorm(1 - alpha / 2) -
+                         qnorm(1 - gamma) * sqrt(1 - t)) / sqrt(t))
     return(y)
   }
 }
@@ -119,8 +114,8 @@ esf_F2_function <- function(alpha, t, gamma) {
     stop(paste0("gamma should be between (",
                 round(1 - pnorm(qnorm(1 - alpha / 2)/2), 3), ", 1)"))
   } else {
-    y <- 2 - 2 * pnorm(qnorm(1 - alpha / 2) / sqrt(t) -
-                         qnorm(1 - gamma) * (1 - t) / sqrt(t))
+    y <- 2 - 2 * pnorm((qnorm(1 - alpha / 2) -
+                         qnorm(1 - gamma) * (1 - t)) / sqrt(t))
     return(y)
   }
 }
@@ -138,11 +133,11 @@ esf_combine_function <- function(alpha, t, gamma) {
                 round(1 - pnorm(qnorm(1 - alpha / 2)/2), 3), ", 1)"))
   } else {
     if (gamma < 0.5) {
-      y <- 2 - 2 * pnorm(qnorm(1 - alpha / 2) / sqrt(t) -
-                           qnorm(1 - gamma) * (1 - t) / sqrt(t))
+      y <- 2 - 2 * pnorm((qnorm(1 - alpha / 2) -
+                           qnorm(1 - gamma) * (1 - t)) / sqrt(t))
     } else {
-      y <- 2 - 2 * pnorm(qnorm(1 - alpha / 2) / sqrt(t) -
-                           qnorm(1 - gamma) * sqrt(1 - t) / sqrt(t))
+      y <- 2 - 2 * pnorm((qnorm(1 - alpha / 2) -
+                           qnorm(1 - gamma) * sqrt(1 - t)) / sqrt(t))
     }
     return(y)
   }
@@ -159,8 +154,8 @@ esf_F3_function <- function(alpha, t, gamma) {
   if (gamma <= alpha / 2 | gamma >= 1) {
     stop(paste0("gamma should be between (", alpha / 2, ", 1)"))
   } else {
-    y <- 2 - 2 * pnorm(qnorm(1 - alpha / 2) / sqrt(t) -
-                         qnorm(1 - gamma) * (1 - sqrt(t)) / sqrt(t))
+    y <- 2 - 2 * pnorm((qnorm(1 - alpha / 2) -
+                         qnorm(1 - gamma) * (1 - sqrt(t))) / sqrt(t))
     return(y)
   }
 }
